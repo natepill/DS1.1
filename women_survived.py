@@ -11,12 +11,3 @@ with open('titanic.csv') as csv_file:
         if row[1] == '1' and row[4] == 'female':
             survived_count += 1
 print(survived_count)
-
-
-
-
-# with open('titanic.csv') as csv_file:
-#     csv_reader = csv.reader(csv_file, delimiter=',')
-#     survived_count = 0
-#     for row in csv_reader:
-#         print(row)
