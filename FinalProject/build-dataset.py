@@ -2,21 +2,20 @@ from textblob import TextBlob
 from sqlalchemy.exc import ProgrammingError
 import requests
 import tweepy
-# import dataset
+import env #Custom env file for tweepy keys
+import dataset
 import json
 import os
 
 
 
-print(os.environ.get('TWITTER_APP_KEY'))
-print(os.environ.get('TWITTER_APP_SECRET'))
+print(env.TWITTER_APP_KEY)
+print(env.TWITTER_APP_SECRET)
 
 # db = dataset.connect("sqlite:///tweets.db")
 # table = db["tweets"]
 #
 #
-# # TWITTER_APP_KEY = 'Pkk8FlrqP1K2rAXUsTQuirpoo'
-# # TWITTER_APP_SECRET = 'DjzupYW7EF6IgcXaAapyGksXuMjD2yktnHlnxCMLXxduwKEz9y'
 #
 # auth = tweepy.OAuthHandler(TWITTER_APP_KEY, TWITTER_APP_SECRET)
 # auth.set_access_token(TWITTER_KEY, TWITTER_SECRET)
