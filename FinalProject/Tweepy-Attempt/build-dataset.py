@@ -8,15 +8,13 @@ import json
 import os
 
 
+# NOTE: CHANGE THE TERMS IN THE ARRAY TO WHAT TERMS OF TWEETS YOU WANT TO SCRAPE
+TRACK_TERMS = ["trump", "clinton", "hillary clinton", "donald trump"]
+
 
 
 db = dataset.connect("sqlite:///tweets.db")
 table = db["tweets"]
-
-
-
-auth = tweepy.OAuthHandler(env.TWITTER_APP_KEY, env.TWITTER_APP_SECRET)
-auth.set_access_token(env.TWITTER_APP_KEY, env.TWITTER_APP_SECRET)
 
 
 
@@ -27,6 +25,7 @@ class StreamListener(tweepy.StreamListener):
     '''Create a listener that prints the text of any tweet that comes from the Twitter API.'''
 
     def on_status(self, status):
+
         if status.retweeted_status:
             return
         print(status.text)
@@ -94,7 +93,14 @@ class StreamListener(tweepy.StreamListener):
 
 
 
+auth = tweepy.OAuthHandler(env.TWITTER_APP_KEY, env.TWITTER_APP_SECRET)
+auth.set_access_token(env.TWITTER_KEY, env.TWITTER_SECRET)
+api = tweepy.API(auth)
 
 stream_listener = StreamListener()
 stream = tweepy.Stream(auth=api.auth, listener=stream_listener)
-stream.filter(track=["trump", "clinton", "hillary clinton", "donald trump"])
+stream.filter(track=TRACK_TERMS)
+
+
+result = db["tweets"].all()
+dataset.freeze(result, format='csv', filename="all-tweets")
