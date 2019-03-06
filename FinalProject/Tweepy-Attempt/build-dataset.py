@@ -26,7 +26,7 @@ class StreamListener(tweepy.StreamListener):
 
     def on_status(self, status):
 
-        if status.retweeted_status:
+        if hasattr(status, 'retweeted_status'):
             return
         print(status.text)
 
